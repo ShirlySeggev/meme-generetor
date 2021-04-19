@@ -5,10 +5,16 @@ var gId = 1;
 var gKeywords = { 'happy': 12, 'funny': 1 };
 
 var gImg = [{
-    id: 1,
-    url: `./img/meme-imgs (square)/1.jpg`,
-    keywords: ['happy']
-}];
+        id: 1,
+        url: `./img/meme-imgs (square)/1.jpg`,
+        keywords: ['happy']
+    },
+    {
+        id: 2,
+        url: `./img/meme-imgs (square)/2.jpg`,
+        keywords: ['happy']
+    }
+];
 
 var gMeme = {
     selectedImgId: 1,
@@ -88,6 +94,14 @@ function setSelectedLine(line) {
 
 function getSelectedLine() {
     return gMeme.selectedLineIdx;
+}
+
+function setSelectedImgId(imgId) {
+    gMeme.selectedImgId = imgId;
+}
+
+function getSelectedImgId() {
+    return gMeme.selectedImgId;
 }
 
 // function getMemeById(memeId) {

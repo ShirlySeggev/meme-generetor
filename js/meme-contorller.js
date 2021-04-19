@@ -8,7 +8,6 @@ var gText = '';
 function onInit() {
     gCanvas = document.querySelector('#meme-canvas');
     gCtx = gCanvas.getContext('2d');
-    drawImg(1);
     addEventsListener();
 }
 
@@ -53,7 +52,7 @@ function onSetText(ev) {
 
 function renderText() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    drawImg(1);
+    drawImg(getSelectedImgId());
     setTimeout(function() {
         drawText();
     }, 1);
@@ -87,12 +86,12 @@ function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
     gCanvas.width = elContainer.offsetWidth;
     gCanvas.height = elContainer.offsetHeight;
-    drawImg(1)
+    drawImg(getSelectedImgId());
 }
 
 function onClearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    drawImg(1);
+    drawImg(getSelectedImgId());
     setTextToMeme(getSelectedLine(), '');
     gText = '';
     document.querySelector('input[name=freeText]').value = '';
@@ -122,4 +121,14 @@ function getHeightPos() {
             break;
     }
     return yPos;
+}
+
+function onOpenModal(memeId) {
+    document.querySelector('.modal').style.display = 'flex';
+    setSelectedImgId(memeId);
+    drawImg(getSelectedImgId());
+}
+
+function onCloseModal() {
+    document.querySelector('.modal').style.display = 'none';
 }

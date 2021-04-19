@@ -16,36 +16,60 @@
         <h1>Welcome to my meme!</h1>
     </head>
 
-    <section class="image-gallery">
+    <section class="image-container">
 
+        <div class="image-gallery">
+            <div class="card">
+                <img class="meme-img" src="./img/meme-imgs (square)/1.jpg" onclick="onOpenModal(1)">
+            </div>
+            <div class="card">
+                <img class="meme-img" src="./img/meme-imgs (square)/2.jpg" onclick="onOpenModal(2)">
+            </div>
+        </div>
 
     </section>
 
-    <div class="style-container">
-        <label for="freeText"></label>
-        <input type="text" name="freeText" id="freeText" />
-        <label for="strokeColor" name="strokeColor"></label>
-        <input type="color" id="strokeColor">
-        <label for="fillColor" name="fillColor"></label>
-        <input type="color" id="fillColor">
-        <button onclick="onSetSize(10)">+</button>
-        <button onclick="onSetSize(-10)">-</button>
-        <button onclick="onSetAlign('right')">Right</button>
-        <button onclick="onSetAlign('center')">Center</button>
-        <button onclick="onSetAlign('left')">Left</button>
-        <button onclick="onSelectLine(0)">upper Line</button>
-        <button onclick="onSelectLine(1)">lower Line</button>
-    </div>
+    <section class="modal">
+        <!-- <div class="modal-conatiner"></div> -->
+        <div class="canvas-container">
+            <canvas id="meme-canvas" height="400" width="400"></canvas>
+        </div>
 
-    <div class="bottons-container">
+        <div class="controls-conatiner">
+            <div class="input-text">
+                <label for="freeText"></label>
+                <input type="text" name="freeText" id="freeText" />
+            </div>
 
-        <button class="clear" onclick="onClearCanvas()">Clear</button>
-        <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
-    </div>
+            <div class="line-container">
+                <button onclick="onSelectLine(0)">upper</button>
+                <button onclick="onSelectLine(1)">lower</button>
+                <button class="clear" onclick="onClearCanvas()">Clear</button>
+            </div>
 
-    <div class="canvas-container">
-        <canvas id="meme-canvas" height="500" width="500"></canvas>
-    </div>
+            <div class="style-container">
+                <button onclick="onSetSize(10)">+</button>
+                <button onclick="onSetSize(-10)">-</button>
+                <button onclick="onSetAlign('right')">Right</button>
+                <button onclick="onSetAlign('center')">Center</button>
+                <button onclick="onSetAlign('left')">Left</button>
+            </div>
+
+            <div class="style2-container">
+                <label for="strokeColor" name="strokeColor"></label>
+                <input type="color" id="strokeColor">
+                <label for="fillColor" name="fillColor"></label>
+                <input type="color" id="fillColor">
+            </div>
+
+            <div class="share-container">
+                <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+            </div>
+        </div>
+
+    </section>
+
+
 
     <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>

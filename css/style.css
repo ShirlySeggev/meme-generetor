@@ -30,6 +30,39 @@ body {
     font-size: 16px;
 }
 
+
+/* GALLERY */
+
+.image-gallery {
+    display: grid;
+    grid-gap: 10px 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 300px;
+}
+
+.meme-img {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: #e0e0e0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* CANVAS */
+
 canvas {
     display: block;
     margin: 0 auto;
