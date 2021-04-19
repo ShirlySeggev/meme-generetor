@@ -1,7 +1,6 @@
 'use strict'
 
 const KEY = 'memes';
-// var gCanvas;
 var gId = 1;
 var gKeywords = { 'happy': 12, 'funny': 1 };
 
@@ -40,7 +39,9 @@ var gMeme = {
 function setInitialPositions(canvas) {
     gMeme.lines.forEach((line, idx) => {
         line.positionX = canvas.width / 2;
-        line.positionY = canvas.height * 0.1 + idx * canvas.height * 0.8;
+        if (idx === 0) line.positionY = canvas.height * 0.1;
+        else if (idx === 1) line.positionY = canvas.height * 0.9;
+        else line.positionY = canvas.height / 2;
     });
 }
 
@@ -70,17 +71,17 @@ function setStrokeColorToMeme(line, strokeColor) {
     gMeme.lines[line].strokeColor = strokeColor;
 }
 
-function getStrokeColorFromMeme() {
-    return gMeme.lines[getSelectedLine()].strokeColor;
-}
+// function getStrokeColorFromMeme() {
+//     return gMeme.lines[getSelectedLine()].strokeColor;
+// }
 
 function setFillColorToMeme(line, fillColor) {
     gMeme.lines[line].fillColor = fillColor;
 }
 
-function getFillColorFromMeme() {
-    return gMeme.lines[getSelectedLine()].fillColor;
-}
+// function getFillColorFromMeme() {
+//     return gMeme.lines[getSelectedLine()].fillColor;
+// }
 
 function setSizeToMeme(line, size) {
     if (gMeme.lines[line].size >= 100 && size > 0) return;
@@ -88,17 +89,17 @@ function setSizeToMeme(line, size) {
     gMeme.lines[line].size += size;
 }
 
-function getSizeFromMeme() {
-    return gMeme.lines[getSelectedLine()].size;
-}
+// function getSizeFromMeme() {
+//     return gMeme.lines[getSelectedLine()].size;
+// }
 
 function setAlignToMeme(line, alignTo) {
     gMeme.lines[line].align = alignTo;
 }
 
-function getAlignFromMeme() {
-    return gMeme.lines[getSelectedLine()].align;
-}
+// function getAlignFromMeme() {
+//     return gMeme.lines[getSelectedLine()].align;
+// }
 
 function setSelectedLine(line) {
     gMeme.selectedLineIdx = line;
@@ -116,7 +117,22 @@ function getSelectedImgId() {
     return gMeme.selectedImgId;
 }
 
+function createLine(canvas) {
+    var newLine = {
+        txt: '',
+        size: 20,
+        align: 'left',
+        strokeColor: 'black',
+        fillColor: 'black',
+        positionX: canvas.width / 2,
+        positionY: canvas.height / 2
+    }
+    gMeme.lines.push(newLine);
+}
 
+function deleteMeme(line) {
+    gMeme.lines.splice(line, 1);
+}
 
 // function getMemeById(memeId) {
 //     var meme = gMeme.find(function(meme) {
