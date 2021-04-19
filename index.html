@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
     <link rel="stylesheet" href="css/style.css">
     <title>memegen</title>
 </head>
@@ -15,7 +16,38 @@
         <h1>Welcome to my meme!</h1>
     </head>
 
-    <!-- <script src="js/util-service.js"></script> -->
+    <section class="image-gallery">
+
+
+    </section>
+
+    <div class="style-container">
+        <label for="freeText"></label>
+        <input type="text" name="freeText" id="freeText" />
+        <label for="strokeColor" name="strokeColor"></label>
+        <input type="color" id="strokeColor">
+        <label for="fillColor" name="fillColor"></label>
+        <input type="color" id="fillColor">
+        <button onclick="onSetSize(10)">+</button>
+        <button onclick="onSetSize(-10)">-</button>
+        <button onclick="onSetAlign('right')">Right</button>
+        <button onclick="onSetAlign('center')">Center</button>
+        <button onclick="onSetAlign('left')">Left</button>
+        <button onclick="onSelectLine(0)">upper Line</button>
+        <button onclick="onSelectLine(1)">lower Line</button>
+    </div>
+
+    <div class="bottons-container">
+
+        <button class="clear" onclick="onClearCanvas()">Clear</button>
+        <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="meme-canvas" height="500" width="500"></canvas>
+    </div>
+
+    <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-contorller.js"></script>

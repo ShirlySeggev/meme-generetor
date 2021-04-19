@@ -29,3 +29,16 @@ body {
     background-color: #CA9F92;
     font-size: 16px;
 }
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    background-color: #D1C6BF;
+    /* cursor: grab; */
+}
+
+.canvas-container {
+    margin: 0 auto;
+    width: 90vw;
+    height: 50vh;
+}
