@@ -1,6 +1,7 @@
 'use strict'
 
 const KEY = 'memes';
+// var gCanvas;
 var gId = 1;
 var gKeywords = { 'happy': 12, 'funny': 1 };
 
@@ -36,7 +37,18 @@ var gMeme = {
     ]
 };
 
+function setInitialPositions(canvas) {
+    gMeme.lines.forEach((line, idx) => {
+        line.positionX = canvas.width / 2;
+        line.positionY = canvas.height * 0.1 + idx * canvas.height * 0.8;
+    });
+}
 
+function moveText(line, distance) {
+    if (gMeme.lines[line].positionY >= 380 && distance > 0) return;
+    if (gMeme.lines[line].positionY <= 20 && distance < 0) return;
+    gMeme.lines[line].positionY += distance;
+}
 
 function getMeme() {
     return gMeme;
@@ -103,6 +115,8 @@ function setSelectedImgId(imgId) {
 function getSelectedImgId() {
     return gMeme.selectedImgId;
 }
+
+
 
 // function getMemeById(memeId) {
 //     var meme = gMeme.find(function(meme) {
