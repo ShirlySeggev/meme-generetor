@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/* TYPOGRAPHY */
+
+@font-face {
+    font-family: monserrat;
+    src: url(../fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: monserrat-bold;
+    src: url(../fonts/Montserrat-Bold.ttf);
+}
+
+
+/* BASE */
+
+html {
+    font-family: monserrat, sans-serif;
+    color: #040a2c;
+    line-height: 1.25;
+}
+
+body {
+    margin: 0;
+    background-color: #CA9F92;
+    font-size: 16px;
+}
