@@ -6,18 +6,6 @@ var gId = 1;
 var gKeywords = { 'happy': 12, 'funny': 1 };
 var gImg = [];
 
-// var gImg = [{
-//     id: 1,
-//     url: `./img/meme-imgs (square)/1.jpg`,
-//     keywords: ['happy']
-// },
-// {
-//     id: 2,
-//     url: `./img/meme-imgs (square)/2.jpg`,
-//     keywords: ['happy']
-// }
-// ];
-
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -163,9 +151,17 @@ function deleteMeme() {
     gMeme.lines.splice(currLine, 1);
 }
 
-// function getMemeById(memeId) {
-//     var meme = gMeme.find(function(meme) {
-//         return memeId === meme.id
-//     });
-//     return meme;
-// }
+function getMemePosition() {
+    let currLine = getSelectedLine();
+    let memePos = {
+        x: gMeme.lines[currLine].positionX,
+        y: gMeme.lines[currLine].positionY
+    }
+    return memePos;
+}
+
+function setMemePosition(posX, posY) {
+    let currLine = getSelectedLine();
+    gMeme.lines[currLine].positionX += posX;
+    gMeme.lines[currLine].positionY += posY;
+}
