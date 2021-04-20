@@ -1,0 +1,16 @@
+  /* TYPOGRAPHY */
+  
+  @font-face {
+      font-family: monserrat;
+      src: url(../fonts/Montserrat-Regular.ttf);
+  }
+  
+  @font-face {
+      font-family: monserrat-bold;
+      src: url(../fonts/Montserrat-Bold.ttf);
+  }
+  
+  @font-face {
+      font-family: brands;
+      src: url(../fonts/fa-brands-400.ttf);
+  }

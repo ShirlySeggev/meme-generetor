@@ -6,11 +6,24 @@ var gCtx;
 var gText = '';
 
 function onInit() {
+    createImages();
+    renderImages();
     gCanvas = document.querySelector('#meme-canvas');
     gCtx = gCanvas.getContext('2d');
     setInitialPositions(gCanvas);
     addEventsListener();
+}
 
+function renderImages() {
+    var images = getImages();
+    var imgHtml = images.map(function(image) {
+        return `  
+                 <div class="card">
+                    <img class="meme-img" src="./img/meme-imgs (square)/${image.id}.jpg" onclick="onOpenModal(${image.id})">
+                </div>`;
+    });
+    var elContainer = document.querySelector('.image-gallery');
+    elContainer.innerHTML = imgHtml.join('');
 }
 
 function addEventsListener() {
@@ -40,7 +53,7 @@ function onSetText(ev) {
     } else {
         gText += ev.data;
     }
-    setTextToMeme(getSelectedLine(), gText);
+    setTextToMeme(gText);
     renderCanvas();
 }
 
@@ -69,28 +82,27 @@ function drawText(line) {
 
 
 function onSetStrokeColor(ev) {
-    setStrokeColorToMeme(getSelectedLine(), ev.target.value);
+    setStrokeColorToMeme(ev.target.value);
     renderCanvas();
 }
 
 function onSetFillColor(ev) {
-    setFillColorToMeme(getSelectedLine(), ev.target.value);
+    setFillColorToMeme(ev.target.value);
     renderCanvas();
 }
 
 function onSetSize(size) {
-    setSizeToMeme(getSelectedLine(), size);
+    setSizeToMeme(size);
     renderCanvas();
 }
 
 function onSetAlign(alignTo) {
-    setAlignToMeme(getSelectedLine(), alignTo);
+    setAlignToMeme(alignTo);
     renderCanvas();
 }
 
 function onDeleteLine() {
-    // setTextToMeme(getSelectedLine(), '');
-    deleteMeme(getSelectedLine());
+    deleteMeme();
     gText = '';
     document.querySelector('input[name=freeText]').value = '';
     renderCanvas();
@@ -110,13 +122,12 @@ function onSwitchtLine() {
     if (line + 1 < linesLen) {
         setSelectedLine(line + 1);
     } else setSelectedLine(0);
-    // (line === 0) ? setSelectedLine(line + 1): setSelectedLine(line - 1);
     gText = getTextFromMeme();
     document.querySelector('input[name=freeText]').value = getTextFromMeme();
 }
 
 function onMoveText(distance) {
-    moveText(getSelectedLine(), distance);
+    moveText(distance);
     renderCanvas();
 }
 
@@ -126,13 +137,18 @@ function onAddLine() {
 }
 
 function onOpenModal(memeId) {
-    document.querySelector('.modal').style.display = 'flex';
+    // document.body.classList.toggle('modal-open');
+    document.querySelector('.main-content').hidden = true;
+    document.querySelector('.meme-modal').hidden = false;
+    document.querySelector('.main-footer').style.bottom = '0';
     setSelectedImgId(memeId);
     drawImg(getSelectedImgId());
 }
 
 function onCloseModal() {
-    document.querySelector('.modal').style.display = 'none';
+    document.querySelector('.meme-modal').hidden = true;
+    document.querySelector('.main-content').hidden = false;
+    document.querySelector('.main-footer').style.bottom = '';
 }
 
 function onDownloadImg(elLink) {

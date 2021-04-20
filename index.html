@@ -12,12 +12,13 @@
 
 <body onload="onInit()">
 
+
     <header class="main-header">
         <div class="main-details container flex space-between align-center">
             <div class="logo">memegen</div>
             <!-- <img class="logo" src="./img/LOGO.png"> -->
             <div class="main-nav flex justify-content align-center">
-                <a class="btn-nav" href="#">Gallery</a>|
+                <a class="btn-nav" href="#" onclick="onCloseModal()">Gallery</a>|
                 <a class="btn-nav" href="#">Memes</a>|
                 <a class="btn-nav" href="#">About</a>
             </div>
@@ -40,14 +41,7 @@
         </section>
 
         <section class="image-container">
-            <div class="image-gallery container">
-                <div class="card">
-                    <img class="meme-img" src="./img/meme-imgs (square)/1.jpg" onclick="onOpenModal(1)">
-                </div>
-                <div class="card">
-                    <img class="meme-img" src="./img/meme-imgs (square)/2.jpg" onclick="onOpenModal(2)">
-                </div>
-            </div>
+            <div class="image-gallery container"></div>
         </section>
 
         <section class="about-me container">
@@ -76,47 +70,49 @@
         </div>
     </footer>
 
-    <section class="modal">
-        <!-- <div class="modal-conatiner"></div> -->
-        <div class="canvas-container">
-            <canvas id="meme-canvas" height="400" width="400"></canvas>
+    <!-- <section class="modal" hidden> -->
+    <section class="meme-modal" hidden>
+        <div class="modal flex align-center">
+            <div class="modal-conatiner container flex space-center">
+                <div class="canvas-container">
+                    <canvas id="meme-canvas" height="300" width="300"></canvas>
+                </div>
+
+                <div class="controls-conatiner flex">
+                    <div class="input-text">
+                        <label for="freeText"></label>
+                        <input type="text" name="freeText" id="freeText" />
+                    </div>
+
+                    <div class="line-container">
+                        <input type="image" class="control-btn" onclick="onMoveText(-5)" src="./img/ICONS/up-arrow.png" ;></input>
+                        <input type="image" class="control-btn" onclick="onMoveText(5)" src="./img/ICONS/down-arrow.png" ;></input>
+                        <input type="image" class="control-btn" onclick="onSwitchtLine()" src="./img/ICONS/switch.png" ;></input>
+                        <input type="image" class="control-btn" onclick="onAddLine()" src="./img/ICONS/add.png" ;></input>
+                        <input type="image" class="control-btn" class="clear" onclick="onDeleteLine()" src="./img/ICONS/trash.png" ;></input>
+                    </div>
+
+                    <div class="style-container">
+                        <input type="image" class="control-btn" onclick="onSetSize(10)" src="./img/ICONS/increase font - icon.png" ;></input>
+                        <input type="image" class="control-btn" onclick="onSetSize(-10)" src="./img/ICONS/decrease font - icon.png" ;></input>
+                        <input type="image" class="control-btn" onclick="onSetAlign('left')" src="./img/ICONS/align-to-left.png" ;></input>
+                        <input type="image" class="control-btn" onclick="onSetAlign('center')" src="./img/ICONS/center-text-alignment.png  " ;></input>
+                        <input type="image" class="control-btn" onclick="onSetAlign('right')" src="./img/ICONS/align-to-right.png" ;></input>
+                    </div>
+
+                    <div class="style-color-container">
+                        <label for="strokeColor" name="strokeColor"></label>
+                        <input class="control-btn" type="color" id="strokeColor" img='./img/ICONS/text stroke.png'></input>
+                        <label for="fillColor" name="fillColor"></label>
+                        <input class="control-btn" type="color" id="fillColor">
+                    </div>
+
+                    <div class="share-container flex">
+                        <a href="#" class="share-btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="controls-conatiner">
-            <div class="input-text">
-                <label for="freeText"></label>
-                <input type="text" name="freeText" id="freeText" />
-            </div>
-
-            <div class="line-container">
-                <button onclick="onMoveText(-5)">up</button>
-                <button onclick="onMoveText(5)">down</button>
-                <button onclick="onSwitchtLine()">switch</button>
-                <button onclick="onAddLine()">Add</button>
-                <button class="clear" onclick="onDeleteLine()">Clear</button>
-                <!-- <button class="clear" onclick="onClearCanvas()">Clear</button> -->
-            </div>
-
-            <div class="style-container">
-                <button onclick="onSetSize(10)">+</button>
-                <button onclick="onSetSize(-10)">-</button>
-                <button onclick="onSetAlign('right')">Right</button>
-                <button onclick="onSetAlign('center')">Center</button>
-                <button onclick="onSetAlign('left')">Left</button>
-            </div>
-
-            <div class="style2-container">
-                <label for="strokeColor" name="strokeColor"></label>
-                <input type="color" id="strokeColor">
-                <label for="fillColor" name="fillColor"></label>
-                <input type="color" id="fillColor">
-            </div>
-
-            <div class="share-container">
-                <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
-            </div>
-        </div>
-
     </section>
 
 

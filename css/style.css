@@ -1,248 +1,274 @@
-        * {
-            box-sizing: border-box;
-        }
-        /* TYPOGRAPHY */
-        
-        @font-face {
-            font-family: monserrat;
-            src: url(../fonts/Montserrat-Regular.ttf);
-        }
-        
-        @font-face {
-            font-family: monserrat-bold;
-            src: url(../fonts/Montserrat-Bold.ttf);
-        }
-        
-        @font-face {
-            font-family: brands;
-            src: url(../fonts/fa-brands-400.ttf);
-        }
-        /* BASE */
-        
-        html {
-            font-family: monserrat, sans-serif;
-            color: #040a2c;
-            /* line-height: 1.25; */
-        }
-        
-        body {
-            margin: 0;
-            font-size: 16px;
-        }
-        
-        h1,
-        h2,
-        h3 {
-            margin: 0 0 1rem;
-        }
-        
-        p {
-            margin: 0 0 1rem;
-        }
-        
-        a {
-            text-decoration: none;
-        }
-        
-        button {
-            cursor: pointer;
-        }
-        /* LAYOUT  */
-        
-        .container {
-            max-width: 550px;
-            margin: 0 auto;
-        }
-        /* COMPONENTS */
-        
-        .main-header {
-            width: 100%;
-            background-color: #ff7f00;
-        }
-        
-        .logo {
-            color: #ffffff;
-            font-family: monserrat-bold;
-            font-size: 1.5rem;
-            text-align: left;
-        }
-        
-        .main-nav {
-            color: #8a8a8a;
-        }
-        
-        .main-nav a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            width: 5rem;
-            height: 2rem;
-            padding: 12px 0;
-        }
-        
-        .main-nav a:active {
-            color: #040a2c;
-            border-bottom: 2px solid #040a2c;
-        }
-        /* MAIN */
-        /* MEME NAVIGATOR */
-        
-        .meme-navigation {
-            height: 4rem;
-        }
-        
-        input[type=text] {
-            border: none;
-            border-bottom: 2px solid #040a2c;
-            background-image: url('./img/ICONS/search-icon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            padding: 12px 20px 12px 40px;
-            background-color: white;
-        }
-        
-        input[type=text]:focus {
-            outline-width: 0;
-        }
-        
-        .keys a {
-            color: #040a2c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 5rem;
-        }
-        /* GALLERY */
-        
-        .image-container {
-            background-color: #e3e3e3;
-            width: 100%;
-        }
-        
-        .image-gallery {
-            padding: 10px 0 10px;
-            display: grid;
-            grid-gap: 10px 10px;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            /* grid-template-columns: repeat(3, 176px); */
-            grid-auto-rows: 176px;
-        }
-        
-        .meme-img {
-            width: 100%;
-            height: 100%;
-        }
-        /* ABOUT ME */
-        
-        .about-me {
-            background-color: #ffffff;
-            width: 100%;
-            /* height: 30vh; */
-        }
-        
-        .about-me-container {
-            padding: 30px 0 30px;
-        }
-        
-        .my-image {
-            height: 160px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 30px;
-        }
-        
-        .info-container {
-            margin-right: 30px;
-        }
-        
-        .fa {
-            font-family: brands;
-            font-size: 1.25rem;
-            border-radius: 6px;
-        }
-        
-        .facebook::before {
-            content: "\f082";
-            color: #ff7f00;
-        }
-        
-        .linkdin::before {
-            content: "\f08c";
-            color: #ff7f00;
-        }
-        
-        .github::before {
-            content: "\f092";
-            color: #ff7f00;
-        }
-        /* CANVAS */
-        
-        canvas {
-            display: block;
-            margin: 0 auto;
-            background-color: #D1C6BF;
-            /* cursor: grab; */
-        }
-        
-        .canvas-container {
-            margin: 0 auto;
-            width: 90vw;
-            height: 50vh;
-        }
-        /* FOOTER */
-        
-        .main-footer {
-            width: 100%;
-            /* height: 6rem; */
-            background-color: #ff7f00;
-        }
-        
-        .footer-container {
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            padding-top: 10px;
-        }
-        
-        .terms {
-            color: #ffffff;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-        /* MODAL */
-        
-        .modal {
-            position: fixed;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
-            background-color: #e0e0e0;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-        /* HELPERS */
-        /* flex helpers */
-        
-        .flex {
-            display: flex;
-        }
-        
-        .space-between {
-            justify-content: space-between;
-        }
-        
-        .space-center {
-            justify-content: center;
-        }
-        
-        .align-center {
-            align-items: center;
-        }
-        /* .clean-list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        } */
+ @import "fonts.css";
+ @import "helpers.css";
+ * {
+     box-sizing: border-box;
+ }
+ /* BASE */
+ 
+ html {
+     font-family: monserrat, sans-serif;
+     color: #040a2c;
+ }
+ 
+ body {
+     margin: 0;
+     font-size: 16px;
+ }
+ 
+ h1,
+ h2,
+ h3 {
+     margin: 0 0 1rem;
+ }
+ 
+ p {
+     margin: 0 0 1rem;
+ }
+ 
+ a {
+     text-decoration: none;
+ }
+ 
+ button {
+     cursor: pointer;
+ }
+ /* LAYOUT  */
+ 
+ .container {
+     max-width: 380px;
+     margin: 0 auto;
+ }
+ /* COMPONENTS */
+ 
+ .main-header {
+     width: 100%;
+     background-color: #ff7f00;
+ }
+ 
+ .logo {
+     color: #ffffff;
+     font-family: monserrat-bold;
+     font-size: 1.5rem;
+     text-align: left;
+ }
+ 
+ .main-nav {
+     color: #8a8a8a;
+ }
+ 
+ .main-nav a {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     color: #ffffff;
+     width: 5rem;
+     height: 2rem;
+     padding: 12px 0;
+ }
+ 
+ .main-nav a:active {
+     color: #040a2c;
+     border-bottom: 2px solid #040a2c;
+ }
+ /* MAIN */
+ /* MEME NAVIGATOR */
+ 
+ .meme-navigation {
+     height: 6rem;
+     flex-direction: column;
+ }
+ 
+ input[type=text] {
+     border: none;
+     border-bottom: 2px solid #040a2c;
+     /* background-image: url('./img/ICONS/search-icon.png'); */
+     background-position: 10px 10px;
+     background-repeat: no-repeat;
+     padding: 12px 20px 12px 40px;
+ }
+ 
+ input[type=text]:focus {
+     outline-width: 0;
+ }
+ 
+ .keys a {
+     color: #040a2c;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 5rem;
+ }
+ /* GALLERY */
+ 
+ .image-container {
+     background-color: #e3e3e3;
+     width: 100%;
+ }
+ 
+ .image-gallery {
+     padding: 10px 0 10px;
+     display: grid;
+     grid-gap: 10px 10px;
+     grid-template-columns: repeat(2, 176px);
+     grid-auto-rows: 140px;
+ }
+ 
+ .meme-img {
+     width: 100%;
+     height: 100%;
+ }
+ /* ABOUT ME */
+ 
+ .about-me {
+     background-color: #ffffff;
+     width: 100%;
+     /* height: 30vh; */
+ }
+ 
+ .about-me-container {
+     padding: 30px 0 30px;
+     flex-direction: column;
+ }
+ 
+ .my-image {
+     height: 160px;
+     object-fit: cover;
+     border-radius: 50%;
+     margin-right: 30px;
+ }
+ 
+ .info-container {
+     margin-right: 30px;
+ }
+ 
+ .fa {
+     font-family: brands;
+     font-size: 1.25rem;
+     border-radius: 6px;
+ }
+ 
+ .facebook::before {
+     content: "\f082";
+     color: #ff7f00;
+ }
+ 
+ .linkdin::before {
+     content: "\f08c";
+     color: #ff7f00;
+ }
+ 
+ .github::before {
+     content: "\f092";
+     color: #ff7f00;
+ }
+ /* FOOTER */
+ 
+ .main-footer {
+     position: absolute;
+     width: 100%;
+     height: 6rem;
+     background-color: #ff7f00;
+ }
+ 
+ .footer-container {
+     flex-direction: column;
+     justify-content: space-around;
+     align-items: center;
+     padding-top: 15px;
+ }
+ 
+ .terms {
+     color: #ffffff;
+     font-size: 0.8rem;
+     letter-spacing: 1px;
+ }
+ /* MODAL */
+ 
+ .modal {
+     position: fixed;
+     top: 2rem;
+     right: 0px;
+     bottom: 6rem;
+     left: 0px;
+     background-color: #e3e3e3;
+     justify-content: center;
+     align-items: center;
+ }
+ /* CANVAS */
+ 
+ .canvas-container {
+     margin: 0 auto;
+ }
+ 
+ canvas {
+     display: block;
+     margin: 0 auto;
+     background-color: #D1C6BF;
+     /* cursor: grab; */
+ }
+ 
+ .controls-conatiner {
+     margin: 0 30px 0 30px;
+     flex-direction: column;
+ }
+ 
+ #freeText {
+     margin-bottom: 2rem;
+ }
+ 
+ .control-btn {
+     width: 30px;
+     height: 30px;
+     padding: 0;
+     margin: 0;
+     background-color: white;
+     border-radius: 20%;
+ }
+ /* input[type="color"] {
+     img: './img/ICONS/text stroke.png';
+     border: 0;
+     border-radius: 100%;
+     -webkit-appearance: none;
+ } */
+ 
+ .style-color-container {
+     flex: 1;
+ }
+ 
+ .share-btn {
+     padding: 9.7px 15.6px 8.3px 15.4px;
+     background-color: #ff7f00;
+     color: #ffffff;
+     border-radius: 6px;
+ }
+ /* body.modal-open .main-screen {
+     pointer-events: none;
+ } */
+ /* MEDIA QUERIES */
+ /* medium */
+ 
+ @media (min-width: 540px) {
+     html {
+         font-size: 14px;
+     }
+     .container {
+         max-width: 550px;
+     }
+     .about-me-container {
+         flex-direction: row;
+     }
+     .image-gallery {
+         grid-template-columns: repeat(3, 176px);
+     }
+     .meme-navigation {
+         height: 5rem;
+         flex-direction: row;
+     }
+ }
+ /* large */
+ 
+ @media (min-width: 980px) {
+     html {
+         font-size: 16px;
+     }
+ }
