@@ -12,18 +12,18 @@
 
 <body onload="onInit()">
 
+    <div class="main-screen" onclick="onToggleMenu()"></div>
 
     <header class="main-header">
         <div class="main-details container flex space-between align-center">
             <div class="logo">memegen</div>
-            <!-- <img class="logo" src="./img/LOGO.png"> -->
             <div class="main-nav flex justify-content align-center">
-                <a class="btn-nav" href="#" onclick="onCloseModal()">Gallery</a>|
-                <a class="btn-nav" href="#">Memes</a>|
+                <a class="btn-nav" href="#" onclick=" onShowGallery()">Gallery</a>
+                <a class="btn-nav" href="#" onclick="onShowMemes()">Memes</a>
                 <a class="btn-nav" href="#">About</a>
             </div>
+            <input type="image" class="btn-menu" onclick="onToggleMenu()" src="./img/ICONS/menu.png" ;></input>
         </div>
-        <!-- <button class="btn-menu" onclick="toggleMenu()">☰</button> -->
     </header>
 
     <main class="main-content">
@@ -47,7 +47,7 @@
         <section class="about-me container">
             <div class="about-me-container flex space-between align-center">
                 <img class="my-image" src="./img/shirly.jpg" alt="">
-                <div class="info-container">
+                <div class="info-container flex align-center">
                     <h3 class="my-name">Shirly Seggev</h3>
                     <p class="my-text">
                         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo doconsequat, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -84,7 +84,7 @@
                         <input type="text" name="freeText" id="freeText" />
                     </div>
 
-                    <div class="line-container">
+                    <div class="line-container flex space-between">
                         <input type="image" class="control-btn" onclick="onMoveText(-5)" src="./img/ICONS/up-arrow.png" ;></input>
                         <input type="image" class="control-btn" onclick="onMoveText(5)" src="./img/ICONS/down-arrow.png" ;></input>
                         <input type="image" class="control-btn" onclick="onSwitchtLine()" src="./img/ICONS/switch.png" ;></input>
@@ -92,7 +92,7 @@
                         <input type="image" class="control-btn" class="clear" onclick="onDeleteLine()" src="./img/ICONS/trash.png" ;></input>
                     </div>
 
-                    <div class="style-container">
+                    <div class="style-container flex space-between">
                         <input type="image" class="control-btn" onclick="onSetSize(10)" src="./img/ICONS/increase font - icon.png" ;></input>
                         <input type="image" class="control-btn" onclick="onSetSize(-10)" src="./img/ICONS/decrease font - icon.png" ;></input>
                         <input type="image" class="control-btn" onclick="onSetAlign('left')" src="./img/ICONS/align-to-left.png" ;></input>
@@ -100,22 +100,29 @@
                         <input type="image" class="control-btn" onclick="onSetAlign('right')" src="./img/ICONS/align-to-right.png" ;></input>
                     </div>
 
-                    <div class="style-color-container">
+                    <div class="style-color-container ">
                         <label for="strokeColor" name="strokeColor"></label>
                         <input class="control-btn" type="color" id="strokeColor" img='./img/ICONS/text stroke.png'></input>
                         <label for="fillColor" name="fillColor"></label>
                         <input class="control-btn" type="color" id="fillColor">
                     </div>
 
-                    <div class="share-container flex">
+                    <div class="share-container flex space-between">
                         <a href="#" class="share-btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+                        <a href="#" class="share-btn" onclick="onSaveImg(this)">Save</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
+    <section class="saved-memes" hidden>
+        <div class="saved-memes-gallery container">
+            <div class="canvas-container">
+                <canvas id="saved-meme-canvas" height="100" width="100"></canvas>
+            </div>
+        </div>
+    </section>
 
     <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>

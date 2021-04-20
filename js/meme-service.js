@@ -1,6 +1,6 @@
 'use strict'
 
-const KEY = 'memes';
+const STORE_KEY = 'memes';
 const IMG_COUNT = 18;
 var gId = 1;
 var gKeywords = { 'happy': 12, 'funny': 1 };
@@ -84,18 +84,11 @@ function setStrokeColorToMeme(strokeColor) {
     gMeme.lines[currLine].strokeColor = strokeColor;
 }
 
-// function getStrokeColorFromMeme() {
-//     return gMeme.lines[getSelectedLine()].strokeColor;
-// }
 
 function setFillColorToMeme(fillColor) {
     let currLine = getSelectedLine();
     gMeme.lines[currLine].fillColor = fillColor;
 }
-
-// function getFillColorFromMeme() {
-//     return gMeme.lines[getSelectedLine()].fillColor;
-// }
 
 function setSizeToMeme(size) {
     let currLine = getSelectedLine();
@@ -104,18 +97,10 @@ function setSizeToMeme(size) {
     gMeme.lines[currLine].size += size;
 }
 
-// function getSizeFromMeme() {
-//     return gMeme.lines[getSelectedLine()].size;
-// }
-
 function setAlignToMeme(alignTo) {
     let currLine = getSelectedLine();
     gMeme.lines[currLine].align = alignTo;
 }
-
-// function getAlignFromMeme() {
-//     return gMeme.lines[getSelectedLine()].align;
-// }
 
 function setSelectedLine(line) {
     gMeme.selectedLineIdx = line;
@@ -164,4 +149,13 @@ function setMemePosition(posX, posY) {
     let currLine = getSelectedLine();
     gMeme.lines[currLine].positionX += posX;
     gMeme.lines[currLine].positionY += posY;
+}
+
+function saveMeme(meme) {
+    saveToStorage(STORE_KEY, meme);
+}
+
+function getSavedMemes() {
+    var memes = loadFromStorage(STORE_KEY);
+    return memes;
 }

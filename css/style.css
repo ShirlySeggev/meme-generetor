@@ -70,6 +70,13 @@
      color: #040a2c;
      border-bottom: 2px solid #040a2c;
  }
+ 
+ .btn-menu {
+     width: 30px;
+     height: 30px;
+     padding: 0;
+     margin: 0;
+ }
  /* MAIN */
  /* MEME NAVIGATOR */
  
@@ -80,11 +87,10 @@
  
  input[type=text] {
      border: none;
+     border-radius: 10px;
      border-bottom: 2px solid #040a2c;
-     /* background-image: url('./img/ICONS/search-icon.png'); */
-     background-position: 10px 10px;
-     background-repeat: no-repeat;
      padding: 12px 20px 12px 40px;
+     width: 100%;
  }
  
  input[type=text]:focus {
@@ -105,7 +111,8 @@
      width: 100%;
  }
  
- .image-gallery {
+ .image-gallery,
+ .saved-memes-gallery {
      padding: 10px 0 10px;
      display: grid;
      grid-gap: 10px 10px;
@@ -122,7 +129,6 @@
  .about-me {
      background-color: #ffffff;
      width: 100%;
-     /* height: 30vh; */
  }
  
  .about-me-container {
@@ -139,6 +145,7 @@
  
  .info-container {
      margin-right: 30px;
+     flex-direction: column;
  }
  
  .fa {
@@ -194,6 +201,10 @@
      justify-content: center;
      align-items: center;
  }
+ 
+ .modal-conatiner {
+     flex-direction: column;
+ }
  /* CANVAS */
  
  .canvas-container {
@@ -204,16 +215,15 @@
      display: block;
      margin: 0 auto;
      background-color: #D1C6BF;
-     /* cursor: grab; */
  }
  
  .controls-conatiner {
-     margin: 0 30px 0 30px;
+     margin: 30px 0 0 0;
      flex-direction: column;
  }
  
  #freeText {
-     margin-bottom: 2rem;
+     margin-bottom: 1.5rem;
  }
  
  .control-btn {
@@ -223,6 +233,7 @@
      margin: 0;
      background-color: white;
      border-radius: 20%;
+     margin-bottom: 1.5rem;
  }
  /* input[type="color"] {
      img: './img/ICONS/text stroke.png';
@@ -236,14 +247,14 @@
  }
  
  .share-btn {
-     padding: 9.7px 15.6px 8.3px 15.4px;
+     padding: 5px 0 5px 0;
      background-color: #ff7f00;
      color: #ffffff;
      border-radius: 6px;
+     font-size: 1em;
+     width: 6em;
+     text-align: center;
  }
- /* body.modal-open .main-screen {
-     pointer-events: none;
- } */
  /* MEDIA QUERIES */
  /* medium */
  
@@ -254,21 +265,98 @@
      .container {
          max-width: 550px;
      }
+     .btn-menu {
+         display: none;
+     }
      .about-me-container {
          flex-direction: row;
      }
-     .image-gallery {
+     .info-container {
+         align-items: flex-start;
+     }
+     .image-gallery,
+     .saved-memes-gallery {
          grid-template-columns: repeat(3, 176px);
      }
      .meme-navigation {
          height: 5rem;
          flex-direction: row;
      }
+     .modal-conatiner {
+         flex-direction: row;
+     }
+     .controls-conatiner {
+         margin: 0 30px 0 30px;
+     }
  }
  /* large */
  
- @media (min-width: 980px) {
+ @media (min-width: 900px) {
      html {
          font-size: 16px;
+     }
+     .container {
+         max-width: 750px;
+     }
+     .image-gallery,
+     .saved-memes-gallery {
+         grid-template-columns: repeat(4, 176px);
+     }
+ }
+ /* xlarge */
+ 
+ @media (min-width: 1300px) {
+     .container {
+         max-width: 935px;
+     }
+     .image-gallery,
+     .saved-memes-gallery {
+         grid-template-columns: repeat(5, 176px);
+     }
+ }
+ 
+ @media (max-width: 540px) {
+     .main-screen {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, .5);
+         cursor: pointer;
+         pointer-events: none;
+         z-index: 1;
+         opacity: 0;
+         transition: opacity .8s;
+     }
+     body.menu-open .main-screen {
+         pointer-events: auto;
+         opacity: 1;
+     }
+     .main-nav {
+         flex-direction: column;
+         position: fixed;
+         z-index: 2;
+         top: 0;
+         right: 0;
+         background-color: #ff7f00;
+         height: 30vh;
+         transform: translateX(100%);
+         transition: transform .6s;
+         overflow-x: hidden;
+     }
+     .main-nav a {
+         text-align: left;
+         width: 250px;
+         height: 100px;
+         padding: 12px 0;
+         border-bottom: 0.5px solid #ffffff;
+         transition: background-color .3s;
+     }
+     .main-nav a:last-of-type {
+         border-bottom: none;
+     }
+     body.menu-open .main-nav {
+         transform: translateX(0);
      }
  }
