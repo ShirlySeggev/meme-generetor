@@ -226,13 +226,21 @@
      margin-bottom: 1.5rem;
  }
  
+ .font-select {
+     width: 90px;
+     height: 30px;
+     border: none;
+     border-radius: 6px;
+     margin-bottom: 1.5rem;
+ }
+ 
  .control-btn {
      width: 30px;
      height: 30px;
      padding: 0;
      margin: 0;
      background-color: white;
-     border-radius: 20%;
+     border-radius: 6px;
      margin-bottom: 1.5rem;
  }
  /* input[type="color"] {

@@ -13,6 +13,7 @@ var gMeme = {
             txt: '',
             size: 20,
             align: 'left',
+            font: 'Impact',
             strokeColor: 'black',
             fillColor: 'black',
         },
@@ -20,6 +21,7 @@ var gMeme = {
             txt: '',
             size: 20,
             align: 'left',
+            font: 'Impact',
             strokeColor: 'black',
             fillColor: 'black',
         }
@@ -100,6 +102,11 @@ function setSizeToMeme(size) {
 function setAlignToMeme(alignTo) {
     let currLine = getSelectedLine();
     gMeme.lines[currLine].align = alignTo;
+}
+
+function setFontToMeme(font) {
+    let currLine = getSelectedLine();
+    gMeme.lines[currLine].font = font;
 }
 
 function setSelectedLine(line) {

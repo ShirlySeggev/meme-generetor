@@ -44,6 +44,9 @@ function addEventsListener() {
     gCanvas.addEventListener('mousedown', onDown);
     gCanvas.addEventListener('mouseup', onUp);
     gCanvas.addEventListener('click', onClick);
+
+    var elFont = document.querySelector('select[name=font]');
+    elFont.addEventListener('change', onSetFont);
 }
 
 function drawImg(imgId) {
@@ -78,7 +81,7 @@ function renderCanvas() {
 function drawText(line) {
     gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fillColor;
-    gCtx.font = `${line.size}px Impact`;
+    gCtx.font = `${line.size}px ${line.font}`;
     gCtx.textAlign = line.align;
     gCtx.fillText(line.txt, line.positionX, line.positionY);
     gCtx.strokeText(line.txt, line.positionX, line.positionY);
@@ -102,6 +105,11 @@ function onSetSize(size) {
 
 function onSetAlign(alignTo) {
     setAlignToMeme(alignTo);
+    renderCanvas();
+}
+
+function onSetFont(ev) {
+    setFontToMeme(ev.target.value);
     renderCanvas();
 }
 
