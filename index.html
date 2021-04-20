@@ -12,22 +12,69 @@
 
 <body onload="onInit()">
 
-    <head>
-        <h1>Welcome to my meme!</h1>
-    </head>
-
-    <section class="image-container">
-
-        <div class="image-gallery">
-            <div class="card">
-                <img class="meme-img" src="./img/meme-imgs (square)/1.jpg" onclick="onOpenModal(1)">
-            </div>
-            <div class="card">
-                <img class="meme-img" src="./img/meme-imgs (square)/2.jpg" onclick="onOpenModal(2)">
+    <header class="main-header">
+        <div class="main-details container flex space-between align-center">
+            <div class="logo">memegen</div>
+            <!-- <img class="logo" src="./img/LOGO.png"> -->
+            <div class="main-nav flex justify-content align-center">
+                <a class="btn-nav" href="#">Gallery</a>|
+                <a class="btn-nav" href="#">Memes</a>|
+                <a class="btn-nav" href="#">About</a>
             </div>
         </div>
+        <!-- <button class="btn-menu" onclick="toggleMenu()">☰</button> -->
+    </header>
 
-    </section>
+    <main class="main-content">
+
+        <section class="meme-navigation container flex space-between align-center">
+            <div class="search">
+                <label for="searchMeme"></label>
+                <input type="text" name="searchMeme" id="searchMeme" placeholder="Enter search key word" />
+            </div>
+            <div class="keys flex justify-content align-center">
+                <a class="key-button" href="#">key</a>
+                <a class="key-button" href="#">key</a>
+                <a class="key-button" href="#">more...</a>
+            </div>
+        </section>
+
+        <section class="image-container">
+            <div class="image-gallery container">
+                <div class="card">
+                    <img class="meme-img" src="./img/meme-imgs (square)/1.jpg" onclick="onOpenModal(1)">
+                </div>
+                <div class="card">
+                    <img class="meme-img" src="./img/meme-imgs (square)/2.jpg" onclick="onOpenModal(2)">
+                </div>
+            </div>
+        </section>
+
+        <section class="about-me container">
+            <div class="about-me-container flex space-between align-center">
+                <img class="my-image" src="./img/shirly.jpg" alt="">
+                <div class="info-container">
+                    <h3 class="my-name">Shirly Seggev</h3>
+                    <p class="my-text">
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo doconsequat, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <div class="social-container">
+                        <a class="fa linkdin" href="https://www.linkedin.com/in/shirly-arcusin-seggev-2474a599/"></a>
+                        <a class="fa facebook" href="https://www.facebook.com/shirly.arcusin"></a>
+                        <a class="fa github" href="#"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container container flex align-center">
+            <div class="logo footer">memegen</div>
+            <p class="terms">all rights reserved 2019</p>
+        </div>
+    </footer>
 
     <section class="modal">
         <!-- <div class="modal-conatiner"></div> -->
