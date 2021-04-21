@@ -39,14 +39,14 @@ function addEventsListener() {
     var elFillColor = document.querySelector('#fillColor');
     elFillColor.addEventListener('input', onSetFillColor);
 
+    var elFont = document.querySelector('select[name=font]');
+    elFont.addEventListener('change', onSetFont);
+
     // window.addEventListener('resize', onResizeCanvas);
     gCanvas.addEventListener('mousemove', onMove);
     gCanvas.addEventListener('mousedown', onDown);
     gCanvas.addEventListener('mouseup', onUp);
     gCanvas.addEventListener('click', onClick);
-
-    var elFont = document.querySelector('select[name=font]');
-    elFont.addEventListener('change', onSetFont);
 }
 
 function drawImg(imgId) {
@@ -72,13 +72,21 @@ function renderCanvas() {
     drawImg(getSelectedImgId());
     setTimeout(function() {
         var lines = getMeme().lines;
-        lines.forEach(line => {
-            drawText(line);
+        lines.forEach((line, idx) => {
+            drawText(line, idx);
         });
     }, 1);
 }
 
-function drawText(line) {
+function drawText(line, idx) {
+    gCtx.beginPath();
+    let currLine = getSelectedLine();
+    if (currLine === idx) {
+        let width = gCtx.measureText(line.txt).width;
+        let height = line.size;
+        gCtx.strokeStyle = "#FF0000";
+        gCtx.strokeRect(line.positionX - 5, line.positionY - height, width + 10, height + 3);
+    }
     gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fillColor;
     gCtx.font = `${line.size}px ${line.font}`;
@@ -121,14 +129,14 @@ function onDeleteLine() {
 }
 
 function onSwitchtLine() {
-    let line = getSelectedLine();
+    let currLine = getSelectedLine();
     let linesLen = getMeme().lines.length;
-    if (line + 1 < linesLen) {
-        setSelectedLine(line + 1);
+    if (currLine + 1 < linesLen) {
+        setSelectedLine(currLine + 1);
     } else setSelectedLine(0);
     gText = getTextFromMeme();
     document.querySelector('input[name=freeText]').value = getTextFromMeme();
-    // gCtx.strokeRect(pos.x, pos.y, 150, 100);
+    renderCanvas();
 }
 
 function onMoveText(distance) {
@@ -168,8 +176,8 @@ function onResizeCanvas() {
 }
 
 function onDown(ev) {
-    const pos = getEvPos(ev)
-    if (!isTextClicked(pos)) return;
+    const pos = getEvPos(ev);
+    if (findMemeLine(pos) < 0) return;
     gIsDragging = true;
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
@@ -183,11 +191,6 @@ function getEvPos(ev) {
     return pos;
 }
 
-function isTextClicked(clickedPos) {
-    const pos = getMemePosition();
-    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2);
-    return distance <= 50;
-}
 
 function onMove(ev) {
     if (gIsDragging) {
@@ -207,20 +210,15 @@ function onUp() {
 
 function onClick(ev) {
     const pos = getEvPos(ev);
-    if (!isTextClicked(pos)) return;
-    gCtx.lineTo(pos.x, pos.y);
-    // markLine(pos);
+    let currLine = findMemeLine(pos);
+    if (currLine >= 0) {
+        setSelectedLine(currLine);
+        gText = getTextFromMeme();
+        document.querySelector('input[name=freeText]').value = getTextFromMeme();
+        renderCanvas();
+    }
 }
 
-function markLine(pos) {
-    gCtx.beginPath()
-    gCtx.lineWidth = 2
-    gCtx.moveTo(pos.x, pos.y)
-    gCtx.lineTo(pos.x + 50, pos.y)
-    gCtx.closePath()
-    gCtx.strokeStyle = 'red';
-    gCtx.stroke()
-}
 
 function onSaveImg(elLink) {
     const imgContent = gCanvas.toDataURL();

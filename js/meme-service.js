@@ -53,7 +53,7 @@ function setInitialPositions(canvas) {
 }
 
 function moveText(distance) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     if (gMeme.lines[currLine].positionY >= 380 && distance > 0) return;
     if (gMeme.lines[currLine].positionY <= 20 && distance < 0) return;
     gMeme.lines[currLine].positionY += distance;
@@ -72,40 +72,40 @@ function getImg(id) {
 }
 
 function setTextToMeme(text) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines[currLine].txt = text;
 }
 
 function getTextFromMeme() {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     return gMeme.lines[currLine].txt;
 }
 
 function setStrokeColorToMeme(strokeColor) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines[currLine].strokeColor = strokeColor;
 }
 
 
 function setFillColorToMeme(fillColor) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines[currLine].fillColor = fillColor;
 }
 
 function setSizeToMeme(size) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     if (gMeme.lines[currLine].size >= 100 && size > 0) return;
     if (gMeme.lines[currLine].size <= 20 && size < 0) return;
     gMeme.lines[currLine].size += size;
 }
 
 function setAlignToMeme(alignTo) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines[currLine].align = alignTo;
 }
 
 function setFontToMeme(font) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines[currLine].font = font;
 }
 
@@ -130,6 +130,7 @@ function createLine(canvas) {
         txt: '',
         size: 20,
         align: 'left',
+        font: 'Impact',
         strokeColor: 'black',
         fillColor: 'black',
         positionX: canvas.width / 2,
@@ -139,13 +140,13 @@ function createLine(canvas) {
 }
 
 function deleteMeme() {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines.splice(currLine, 1);
 }
 
 function getMemePosition() {
-    let currLine = getSelectedLine();
-    let memePos = {
+    const currLine = getSelectedLine();
+    const memePos = {
         x: gMeme.lines[currLine].positionX,
         y: gMeme.lines[currLine].positionY
     }
@@ -153,7 +154,7 @@ function getMemePosition() {
 }
 
 function setMemePosition(posX, posY) {
-    let currLine = getSelectedLine();
+    const currLine = getSelectedLine();
     gMeme.lines[currLine].positionX += posX;
     gMeme.lines[currLine].positionY += posY;
 }
@@ -163,6 +164,21 @@ function saveMeme(meme) {
 }
 
 function getSavedMemes() {
-    var memes = loadFromStorage(STORE_KEY);
+    const memes = loadFromStorage(STORE_KEY);
     return memes;
+}
+
+function findMemeLine(pos) {
+    var lineIdx = gMeme.lines.findIndex(line => {
+        let width = gCtx.measureText(line.txt).width;
+        if (line.positionX >= pos.x && line.positionX - pos.x <= 10) {
+            if (line.positionY >= pos.y && line.positionY - pos.y <= line.size + 5) return line;
+            else if (line.positionY <= pos.y && line.positionY - pos.y >= -10) return line;
+
+        } else if (line.positionX <= pos.x && line.positionX - pos.x + width >= -10) {
+            if (line.positionY >= pos.y && line.positionY - pos.y <= line.size + 5) return line;
+            else if (line.positionY <= pos.y && line.positionY - pos.y >= -10) return line;
+        }
+    });
+    return lineIdx;
 }
