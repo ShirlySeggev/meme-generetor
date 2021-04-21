@@ -34,9 +34,10 @@
                 <input type="text" name="searchMeme" id="searchMeme" placeholder="Enter search key word" />
             </div>
             <div class="keys flex justify-content align-center">
-                <a class="key-button" href="#">key</a>
-                <a class="key-button" href="#">key</a>
-                <a class="key-button" href="#">more...</a>
+                <a class="key-button" href="#" onclick="onClickKey('funny')">funny</a>
+                <a class="key-button" href="#" onclick="onClickKey('politics')">politics</a>
+                <a class="key-button" href="#" onclick="onClickKey('happy')">happy</a>
+                <a class="key-button" href="#" onclick="onClickKey('')">All!</a>
             </div>
         </section>
 
@@ -99,7 +100,7 @@
                         <input type="image" class="control-btn" onclick="onSetAlign('right')" src="./img/ICONS/align-to-right.png" ;></input>
                     </div>
 
-                    <div class="style-color-container ">
+                    <div class="style-color-container">
                         <label for="font"></label>
                         <select class="font-select" name="font" id="font">
                             <option value="Impact">Impact</option>
@@ -110,9 +111,18 @@
                         </select>
 
                         <label for="strokeColor" name="strokeColor"></label>
-                        <input class="control-btn" type="color" id="strokeColor" img='./img/ICONS/text stroke.png'></input>
+                        <input class="control-btn vissually-hiden" type="color" id="strokeColor" src="./img/ICONS/text stroke.png" ;></input>
                         <label for="fillColor" name="fillColor"></label>
-                        <input class="control-btn" type="color" id="fillColor">
+                        <input class="control-btn" type="color" id="fillColor" src="./img/ICONS/paint-board-and-brush.png" ;></input>
+                    </div>
+
+                    <div class="sticker-container flex space-between">
+                        <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/glasses.png" ;></input>
+                        <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/laughing.png" ;></input>
+                        <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/smile.png" ;></input>
+                        <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/tall-hat.png" ;></input>
+                        <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/giftbox.png" ;></input>
+
                     </div>
 
                     <div class="share-container flex space-between">

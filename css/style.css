@@ -231,7 +231,7 @@
      height: 30px;
      border: none;
      border-radius: 6px;
-     margin-bottom: 1.5rem;
+     margin-bottom: 1rem;
  }
  
  .control-btn {
@@ -241,14 +241,15 @@
      margin: 0;
      background-color: white;
      border-radius: 6px;
-     margin-bottom: 1.5rem;
+     margin-bottom: 1rem;
  }
- /* input[type="color"] {
-     img: './img/ICONS/text stroke.png';
+ 
+ input[type="color"] {
+     /* img: './img/ICONS/text stroke.png'; */
      border: 0;
-     border-radius: 100%;
      -webkit-appearance: none;
- } */
+     src: ("./img/ICONS/align-to-right.png");
+ }
  
  .style-color-container {
      flex: 1;
@@ -262,6 +263,18 @@
      font-size: 1em;
      width: 6em;
      text-align: center;
+ }
+ 
+ .stiker {
+     width: 30px;
+     height: 30px;
+ }
+ 
+ .sticker-container {
+     background-color: #ffffff;
+     padding: 8px 8px 8px 8px;
+     border-radius: 6px;
+     margin-bottom: 1rem;
  }
  /* MEDIA QUERIES */
  /* medium */

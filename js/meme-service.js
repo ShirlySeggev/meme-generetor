@@ -27,7 +27,8 @@ var gMeme = {
             strokeColor: 'black',
             fillColor: 'black',
         }
-    ]
+    ],
+    stickers: []
 };
 
 function createImages() {
@@ -198,4 +199,22 @@ function getFilteredMemes() {
 
 function setFilter(filterBy) {
     gFilterBy = filterBy;
+}
+
+function setStickerOnMeme(sticker, size) {
+    let newSticker = { src: sticker, positionX: 30, positionY: 30, size };
+    gMeme.stickers.push(newSticker);
+}
+
+function findStickerPosition(pos) {
+    var theSticker = gMeme.stickers.find(sticker => {
+        const distance = Math.sqrt((pos.x - sticker.positionX) ** 2 + (pos.y - sticker.positionY) ** 2);
+        return distance <= sticker.size;
+    });
+    return theSticker;
+}
+
+function setStickerPosition(posX, posY, theSticker) {
+    theSticker.positionX += posX;
+    theSticker.positionY += posY;
 }

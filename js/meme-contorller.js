@@ -6,6 +6,7 @@ var gCtx;
 var gText = '';
 var gStartPos;
 var gIsDragging = false;
+var gDragging;
 
 function onInit() {
     createImages();
@@ -44,7 +45,6 @@ function addEventsListener() {
     var elSearch = document.querySelector('#searchMeme');
     elSearch.addEventListener('input', onSearchMeme);
 
-    // window.addEventListener('resize', onResizeCanvas);
     gCanvas.addEventListener('mousemove', onMove);
     gCanvas.addEventListener('mousedown', onDown);
     gCanvas.addEventListener('mouseup', onUp);
@@ -80,6 +80,10 @@ function renderCanvas() {
         var lines = getMeme().lines;
         lines.forEach((line, idx) => {
             drawText(line, idx);
+        });
+        var stickers = getMeme().stickers;
+        stickers.forEach(sticker => {
+            renderSticker(sticker);
         });
     }, 1);
 }
@@ -156,6 +160,8 @@ function onAddLine() {
 }
 
 function onOpenModal(memeId) {
+    gText = '';
+    document.querySelector('input[name=freeText]').value = '';
     document.querySelector('.main-content').hidden = true;
     document.querySelector('.meme-modal').hidden = false;
     document.querySelector('.main-footer').style.bottom = '0';
@@ -170,16 +176,17 @@ function onShowGallery() {
     document.querySelector('.main-footer').style.bottom = '';
 }
 
-function onResizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container');
-    gCanvas.width = elContainer.offsetWidth;
-    gCanvas.height = elContainer.offsetHeight;
-    drawImg(getSelectedImgId());
-}
-
 function onDown(ev) {
     const pos = getEvPos(ev);
-    if (findMemeLine(pos) < 0) return;
+    const sticker = findStickerPosition(pos);
+    const line = findMemeLine(pos);
+
+    if (sticker !== undefined) gDragging = 'sticker';
+    if (line >= 0) gDragging = 'line';
+    if (sticker === undefined && line < 0) {
+        gDragging = '';
+        return;
+    }
     gIsDragging = true;
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
@@ -195,10 +202,11 @@ function getEvPos(ev) {
 
 function onMove(ev) {
     if (gIsDragging) {
-        const pos = getEvPos(ev)
-        const dx = pos.x - gStartPos.x
-        const dy = pos.y - gStartPos.y
-        setMemePosition(dx, dy);
+        const pos = getEvPos(ev);
+        const dx = pos.x - gStartPos.x;
+        const dy = pos.y - gStartPos.y;
+        if (gDragging === 'line') setMemePosition(dx, dy);
+        else setStickerPosition(dx, dy, findStickerPosition(pos));
         gStartPos = pos;
         renderCanvas();
     }
@@ -206,6 +214,7 @@ function onMove(ev) {
 
 function onUp() {
     gIsDragging = false;
+    gDragging = '';
     document.body.style.cursor = 'grab';
 }
 
@@ -221,6 +230,9 @@ function onClick(ev) {
 }
 
 function onDownloadImg(elLink) {
+    // setSelectedLine(-1);
+    // renderCanvas();
+
     const imgContent = gCanvas.toDataURL();
     elLink.href = imgContent;
 }
@@ -256,4 +268,26 @@ function renderSavedMemes() {
 function onSearchMeme(ev) {
     setFilter(ev.target.value);
     renderImages();
+}
+
+function onClickKey(key) {
+    setFilter(key);
+    renderImages();
+}
+
+function onSetSticker(sticker) {
+    setStickerOnMeme(sticker.src, gCanvas.width / 5);
+    var img = new Image();
+    img.src = sticker.src;
+    img.onload = () => {
+        gCtx.drawImage(img, 0, 0, gCanvas.width / 5, gCanvas.height / 5);
+    }
+}
+
+function renderSticker(sticker) {
+    var img = new Image();
+    img.src = sticker.src;
+    img.onload = () => {
+        gCtx.drawImage(img, sticker.positionX, sticker.positionY, gCanvas.width / 5, gCanvas.height / 5);
+    }
 }
