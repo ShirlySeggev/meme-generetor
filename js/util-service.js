@@ -2,7 +2,8 @@
 
 
 function makeRandKey() {
-    var key = ['happy', 'funny', 'politics'];
+    var key = ['happy', 'funny', 'politics', 'tv'];
+
     var randIdx = getRandomIntInclusive(0, key.length - 1);
     return key[randIdx];
 }

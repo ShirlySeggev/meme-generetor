@@ -1,10 +1,12 @@
 'use strict'
 
-const STORE_KEY = 'memes';
+const STORE_KEY = 'memesDB';
 const IMG_COUNT = 18;
 var gId = 1;
 var gKeywords = { 'happy': 12, 'funny': 1 };
 var gImg = [];
+var gSavedMemes = [];
+var gFilterBy = '';
 
 var gMeme = {
     selectedImgId: 1,
@@ -160,12 +162,13 @@ function setMemePosition(posX, posY) {
 }
 
 function saveMeme(meme) {
-    saveToStorage(STORE_KEY, meme);
+    gSavedMemes.push(meme);
+    saveToStorage(STORE_KEY, gSavedMemes);
 }
 
 function getSavedMemes() {
-    const memes = loadFromStorage(STORE_KEY);
-    return memes;
+    var savedMemes = loadFromStorage(STORE_KEY);
+    return savedMemes;
 }
 
 function findMemeLine(pos) {
@@ -181,4 +184,18 @@ function findMemeLine(pos) {
         }
     });
     return lineIdx;
+}
+
+function getFilteredMemes() {
+    var filteredMemes = gImg.filter(img => {
+        var isFound = (img.keywords).some(key => {
+            return key.includes(gFilterBy);
+        });
+        if (isFound) return img;
+    });
+    return filteredMemes;
+}
+
+function setFilter(filterBy) {
+    gFilterBy = filterBy;
 }

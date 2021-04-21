@@ -6,5 +6,5 @@ function saveToStorage(key, val) {
 
 function loadFromStorage(key) {
     var dataURL = localStorage.getItem(key);
-    return dataURL;
+    return JSON.parse(dataURL);
 }
