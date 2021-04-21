@@ -128,23 +128,24 @@
                     <div class="share-container flex space-between">
                         <a href="#" class="download share-btn" onclick="onDownloadImg()">Download</a>
                         <a href="#" class="save share-btn" onclick="onSaveImg()">Save</a>
+                        <a href="#" class="share share-btn" action="" method="POST" enctype="multipart/form-data" onclick="uploadImg(this)">Share</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="saved-memes" hidden>
-        <div class="modal flex align-center">
-            <div class="saved-memes-gallery container">
+    <section class="saved-memes " hidden>
+        <div class="modal flex align-center ">
+            <div class="saved-memes-gallery container ">
             </div>
         </div>
     </section>
 
-    <script src="js/util-service.js"></script>
-    <script src="js/storage-service.js"></script>
-    <script src="js/meme-service.js"></script>
-    <script src="js/meme-contorller.js"></script>
+    <script src="js/util-service.js "></script>
+    <script src="js/storage-service.js "></script>
+    <script src="js/meme-service.js "></script>
+    <script src="js/meme-contorller.js "></script>
 </body>
 
 </html>
