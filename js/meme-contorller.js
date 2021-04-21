@@ -7,6 +7,7 @@ var gText = '';
 var gStartPos;
 var gIsDragging = false;
 var gDragging;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
 function onInit() {
     createImages();
@@ -45,10 +46,22 @@ function addEventsListener() {
     var elSearch = document.querySelector('#searchMeme');
     elSearch.addEventListener('input', onSearchMeme);
 
+    addMouseListeners();
+    addTouchListeners();
+
+}
+
+function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove);
     gCanvas.addEventListener('mousedown', onDown);
     gCanvas.addEventListener('mouseup', onUp);
     gCanvas.addEventListener('click', onClick);
+}
+
+function addTouchListeners() {
+    gCanvas.addEventListener('touchstart', onDown);
+    gCanvas.addEventListener('touchmove', onMove);
+    gCanvas.addEventListener('touchend', onUp);
 }
 
 function onToggleMenu() {
@@ -76,7 +89,7 @@ function onSetText(ev) {
 function renderCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     drawImg(getSelectedImgId());
-    setTimeout(function() {
+    setTimeout(() => {
         var lines = getMeme().lines;
         lines.forEach((line, idx) => {
             drawText(line, idx);
@@ -197,6 +210,14 @@ function getEvPos(ev) {
         x: ev.offsetX,
         y: ev.offsetY
     }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault();
+        ev = ev.changedTouches[0];
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
     return pos;
 }
 
@@ -229,17 +250,24 @@ function onClick(ev) {
     }
 }
 
-function onDownloadImg(elLink) {
-    // setSelectedLine(-1);
-    // renderCanvas();
-
-    const imgContent = gCanvas.toDataURL();
-    elLink.href = imgContent;
+function onDownloadImg() {
+    setSelectedLine(-1);
+    renderCanvas();
+    setTimeout(() => {
+        var link = document.createElement('a');
+        link.download = 'my-img.jpg';
+        link.href = document.getElementById('meme-canvas').toDataURL();
+        link.click();
+    }, 1);
 }
 
-function onSaveImg(elLink) {
-    const imgContent = gCanvas.toDataURL();
-    saveMeme(imgContent);
+function onSaveImg() {
+    setSelectedLine(-1);
+    renderCanvas();
+    setTimeout(() => {
+        const imgContent = gCanvas.toDataURL();
+        saveMeme(imgContent);
+    }, 1);
 }
 
 function onShowMemes() {

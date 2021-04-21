@@ -245,7 +245,6 @@
  }
  
  input[type="color"] {
-     /* img: './img/ICONS/text stroke.png'; */
      border: 0;
      -webkit-appearance: none;
      src: ("./img/ICONS/align-to-right.png");
