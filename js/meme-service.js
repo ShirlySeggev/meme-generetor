@@ -75,8 +75,9 @@ function getImg(id) {
     return gImg[id - 1].url;
 }
 
-function setTextToMeme(text) {
+function setTextToMeme(text, canvas) {
     const currLine = getSelectedLine();
+    if (gMeme.lines.length === 0) createLine(canvas);
     gMeme.lines[currLine].txt = text;
 }
 
@@ -208,15 +209,6 @@ function setStickerOnMeme(sticker, size) {
     gMeme.selectedStickerIdx = gMeme.stickers.length;
     gMeme.stickers.push(newSticker);
 }
-
-// function findStickerPosition(pos) {
-//     var theSticker = gMeme.stickers.find(sticker => {
-//         const distance = Math.sqrt((pos.x - sticker.positionX) ** 2 + (pos.y - sticker.positionY) ** 2);
-//         return distance <= sticker.size;
-//     });
-//     return theSticker;
-
-// }
 
 function setStickerPosition(posX, posY) {
     gMeme.stickers[gMeme.selectedStickerIdx].positionX += posX;

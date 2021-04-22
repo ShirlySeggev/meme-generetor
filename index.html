@@ -11,11 +11,9 @@
 </head>
 
 <body onload="onInit()">
+    <div class="main-screen" onclick="onToggleMenu()"></div>
 
-    <div class="main-container">
-
-        <div class="main-screen" onclick="onToggleMenu()"></div>
-
+    <div class="main-container flex">
 
         <header class="main-header">
             <div class="main-details container flex space-between align-center">
@@ -29,38 +27,117 @@
             </div>
         </header>
 
-        <main class="main-content">
+        <main class="main">
+            <section class="main-content flex">
 
-            <section class="meme-navigation container flex space-between align-center">
-                <div class="search">
-                    <label for="searchMeme"></label>
-                    <input type="text" name="searchMeme" id="searchMeme" placeholder="Enter search key word" />
-                </div>
-                <div class="keys flex justify-content align-center">
-                    <a class="key-button" href="#" onclick="onClickKey('funny')">funny</a>
-                    <a class="key-button" href="#" onclick="onClickKey('politics')">politics</a>
-                    <a class="key-button" href="#" onclick="onClickKey('happy')">happy</a>
-                    <a class="key-button" href="#" onclick="onClickKey('')">All!</a>
-                </div>
-            </section>
+                <section class="meme-navigation container flex space-between align-center">
+                    <div class="search">
+                        <label for="searchMeme"></label>
+                        <input type="text" name="searchMeme" id="searchMeme" placeholder="Enter search key word" />
+                    </div>
+                    <div class="keys flex justify-content align-center">
+                        <a class="key-button" href="#" onclick="onClickKey('funny')">funny</a>
+                        <a class="key-button" href="#" onclick="onClickKey('politics')">politics</a>
+                        <a class="key-button" href="#" onclick="onClickKey('happy')">happy</a>
+                        <a class="key-button" href="#" onclick="onClickKey('')">All!</a>
+                    </div>
+                </section>
 
-            <section class="image-container">
-                <div class="image-gallery container"></div>
-            </section>
+                <section class="image-container">
+                    <div class="image-gallery container"></div>
+                </section>
 
-            <section class="about-me container">
-                <div class="about-me-container flex space-between align-center">
-                    <img class="my-image" src="./img/shirly.jpg" alt="">
-                    <div class="info-container flex align-center">
-                        <h3 class="my-name">Shirly Seggev</h3>
-                        <p class="my-text">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo doconsequat, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <div class="social-container">
-                            <a class="fa linkdin" href="https://www.linkedin.com/in/shirly-arcusin-seggev-2474a599/"></a>
-                            <a class="fa facebook" href="https://www.facebook.com/shirly.arcusin"></a>
-                            <a class="fa github" href="#"></a>
+                <section class="about-me container">
+                    <div class="about-me-container flex space-between align-center">
+                        <img class="my-image" src="./img/shirly.jpg" alt="">
+                        <div class="info-container flex align-center">
+                            <h3 class="my-name">Shirly Seggev</h3>
+                            <p class="my-text">
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo doconsequat, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                            <div class="social-container">
+                                <a class="fa linkdin" href="https://www.linkedin.com/in/shirly-arcusin-seggev-2474a599/"></a>
+                                <a class="fa facebook" href="https://www.facebook.com/shirly.arcusin"></a>
+                                <a class="fa github" href="#"></a>
+                            </div>
                         </div>
+                    </div>
+                </section>
+
+            </section>
+
+            <section class="meme-modal" hidden>
+                <div class="modal flex align-center">
+                    <div class="modal-conatiner container flex space-center">
+                        <div class="canvas-container">
+                            <canvas id="meme-canvas" height="300" width="300"></canvas>
+                        </div>
+
+                        <div class="controls-conatiner flex">
+                            <div class="input-text">
+                                <label for="freeText"></label>
+                                <input type="text" name="freeText" id="freeText" />
+                            </div>
+
+                            <div class="line-container flex space-between">
+                                <input type="image" class="control-btn" onclick="onMoveText(-5)" src="./img/ICONS/up-arrow.png" ;></input>
+                                <input type="image" class="control-btn" onclick="onMoveText(5)" src="./img/ICONS/down-arrow.png" ;></input>
+                                <input type="image" class="control-btn" onclick="onSwitchtLine()" src="./img/ICONS/switch.png" ;></input>
+                                <input type="image" class="control-btn" onclick="onAddLine()" src="./img/ICONS/add.png" ;></input>
+                                <input type="image" class="control-btn" class="clear" onclick="onDeleteLine()" src="./img/ICONS/trash.png" ;></input>
+                            </div>
+
+                            <div class="style-container flex space-between">
+                                <input type="image" class="control-btn" onclick="onSetSize(10)" src="./img/ICONS/increase font - icon.png" ;></input>
+                                <input type="image" class="control-btn" onclick="onSetSize(-10)" src="./img/ICONS/decrease font - icon.png" ;></input>
+                                <input type="image" class="control-btn" onclick="onSetAlign('left')" src="./img/ICONS/align-to-left.png" ;></input>
+                                <input type="image" class="control-btn" onclick="onSetAlign('center')" src="./img/ICONS/center-text-alignment.png  " ;></input>
+                                <input type="image" class="control-btn" onclick="onSetAlign('right')" src="./img/ICONS/align-to-right.png" ;></input>
+                            </div>
+
+                            <div class="style-color-container">
+                                <label for="font"></label>
+                                <select class="font-select" name="font" id="font">
+                                    <option value="Impact">Impact</option>
+                                    <option value="Arial, sans-serif">Arial</option>
+                                    <option value="'Brush Script MT', cursive">Brush Script MT</option>
+                                    <option value="'Courier New', monospace">Courier New</option>
+                                    <option value="Georgia, serif">Georgia</option>
+                                </select>
+
+                                <label for="strokeColor" name="strokeColor"></label>
+                                <input class="control-btn vissually-hiden" type="color" id="strokeColor" src="./img/ICONS/text stroke.png" ;></input>
+                                <label for="fillColor" name="fillColor"></label>
+                                <input class="control-btn" type="color" id="fillColor" src="./img/ICONS/paint-board-and-brush.png" ;></input>
+                            </div>
+
+                            <div class="sticker-container flex space-between">
+                                <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/glasses.png" ;></input>
+                                <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/laughing.png" ;></input>
+                                <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/smile.png" ;></input>
+                                <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/tall-hat.png" ;></input>
+                                <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/giftbox.png" ;></input>
+
+                            </div>
+
+                            <div class="share-container flex space-between">
+                                <a href="#" class="download share-btn" onclick="onDownloadImg()">Download</a>
+                                <a href="#" class="save share-btn" onclick="onSaveImg()">Save</a>
+                                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(this, event)">
+                                    <input name="img" id="imgData" type="hidden" />
+                                    <button class="publish share-btn" type="submit"><img class="tools-icon" type="submit">Share
+                                    </button>
+                                    <div class="share-container"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="saved-memes" hidden>
+                <div class="flex align-center ">
+                    <div class="saved-memes-gallery container ">
                     </div>
                 </div>
             </section>
@@ -74,81 +151,12 @@
             </div>
         </footer>
 
-        <section class="meme-modal" hidden>
-            <div class="modal flex align-center">
-                <div class="modal-conatiner container flex space-center">
-                    <div class="canvas-container">
-                        <canvas id="meme-canvas" height="300" width="300"></canvas>
-                    </div>
-
-                    <div class="controls-conatiner flex">
-                        <div class="input-text">
-                            <label for="freeText"></label>
-                            <input type="text" name="freeText" id="freeText" />
-                        </div>
-
-                        <div class="line-container flex space-between">
-                            <input type="image" class="control-btn" onclick="onMoveText(-5)" src="./img/ICONS/up-arrow.png" ;></input>
-                            <input type="image" class="control-btn" onclick="onMoveText(5)" src="./img/ICONS/down-arrow.png" ;></input>
-                            <input type="image" class="control-btn" onclick="onSwitchtLine()" src="./img/ICONS/switch.png" ;></input>
-                            <input type="image" class="control-btn" onclick="onAddLine()" src="./img/ICONS/add.png" ;></input>
-                            <input type="image" class="control-btn" class="clear" onclick="onDeleteLine()" src="./img/ICONS/trash.png" ;></input>
-                        </div>
-
-                        <div class="style-container flex space-between">
-                            <input type="image" class="control-btn" onclick="onSetSize(10)" src="./img/ICONS/increase font - icon.png" ;></input>
-                            <input type="image" class="control-btn" onclick="onSetSize(-10)" src="./img/ICONS/decrease font - icon.png" ;></input>
-                            <input type="image" class="control-btn" onclick="onSetAlign('left')" src="./img/ICONS/align-to-left.png" ;></input>
-                            <input type="image" class="control-btn" onclick="onSetAlign('center')" src="./img/ICONS/center-text-alignment.png  " ;></input>
-                            <input type="image" class="control-btn" onclick="onSetAlign('right')" src="./img/ICONS/align-to-right.png" ;></input>
-                        </div>
-
-                        <div class="style-color-container">
-                            <label for="font"></label>
-                            <select class="font-select" name="font" id="font">
-                            <option value="Impact">Impact</option>
-                            <option value="Arial, sans-serif">Arial</option>
-                            <option value="'Brush Script MT', cursive">Brush Script MT</option>
-                            <option value="'Courier New', monospace">Courier New</option>
-                            <option value="Georgia, serif">Georgia</option>
-                        </select>
-
-                            <label for="strokeColor" name="strokeColor"></label>
-                            <input class="control-btn vissually-hiden" type="color" id="strokeColor" src="./img/ICONS/text stroke.png" ;></input>
-                            <label for="fillColor" name="fillColor"></label>
-                            <input class="control-btn" type="color" id="fillColor" src="./img/ICONS/paint-board-and-brush.png" ;></input>
-                        </div>
-
-                        <div class="sticker-container flex space-between">
-                            <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/glasses.png" ;></input>
-                            <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/laughing.png" ;></input>
-                            <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/smile.png" ;></input>
-                            <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/tall-hat.png" ;></input>
-                            <input type="image" class="stiker" onclick="onSetSticker(this)" src="./img/stickers/giftbox.png" ;></input>
-
-                        </div>
-
-                        <div class="share-container flex space-between">
-                            <a href="#" class="download share-btn" onclick="onDownloadImg()">Download</a>
-                            <a href="#" class="save share-btn" onclick="onSaveImg()">Save</a>
-                            <a href="#" class="share share-btn" action="" method="POST" enctype="multipart/form-data" onclick="uploadImg(this)">Share</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="saved-memes " hidden>
-            <div class="modal flex align-center ">
-                <div class="saved-memes-gallery container ">
-                </div>
-            </div>
-        </section>
 
     </div>
 
     <script src="js/util-service.js "></script>
     <script src="js/storage-service.js "></script>
+    <script src="js/upload-service.js"></script>
     <script src="js/meme-service.js "></script>
     <script src="js/meme-contorller.js "></script>
 </body>

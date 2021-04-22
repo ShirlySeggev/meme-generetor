@@ -3,8 +3,7 @@
 
 var gCanvas;
 var gCtx;
-var gText = '';
-var gStartPos;
+var gStartPos; //
 var gIsDragging = false;
 var gDragging;
 var gSelected;
@@ -15,8 +14,7 @@ function onInit() {
     renderImages();
     gCanvas = document.querySelector('#meme-canvas');
     gCtx = gCanvas.getContext('2d');
-    setInitialPositions(gCanvas);
-    addEventsListener();
+    setEventsListener();
 }
 
 function renderImages() {
@@ -31,7 +29,7 @@ function renderImages() {
     elContainer.innerHTML = imgHtml.join('');
 }
 
-function addEventsListener() {
+function setEventsListener() {
     var elfreeText = document.querySelector('#freeText');
     elfreeText.addEventListener('input', onSetText);
 
@@ -49,7 +47,6 @@ function addEventsListener() {
 
     addMouseListeners();
     addTouchListeners();
-
 }
 
 function addMouseListeners() {
@@ -87,12 +84,7 @@ function renderCanvas() {
 }
 
 function onSetText(ev) {
-    if (!ev.data) {
-        gText = gText.substr(0, gText.length - 1);
-    } else {
-        gText += ev.data;
-    }
-    setTextToMeme(gText);
+    setTextToMeme(ev.target.value, gCanvas);
     renderCanvas();
 }
 
@@ -141,11 +133,15 @@ function onSetFont(ev) {
 }
 
 function onDeleteLine() {
-    if (gSelected === 'line') {
+    if (gSelected === 'sticker') {
+        deleteSticker();
+        gSelected === '';
+    } else {
         deleteLine();
-        gText = '';
         document.querySelector('input[name=freeText]').value = '';
-    } else if (gSelected === 'sticker') deleteSticker();
+        gSelected === '';
+    }
+
     renderCanvas();
 }
 
@@ -155,7 +151,6 @@ function onSwitchtLine() {
     if (currLine + 1 < linesLen) {
         setSelectedLine(currLine + 1);
     } else setSelectedLine(0);
-    gText = getTextFromMeme();
     document.querySelector('input[name=freeText]').value = getTextFromMeme();
     renderCanvas();
 }
@@ -171,31 +166,31 @@ function onAddLine() {
 }
 
 function onOpenModal(memeId) {
-    gText = '';
-    resetMeme();
-    document.querySelector('input[name=freeText]').value = '';
-    document.querySelector('.main-content').hidden = true;
+    document.querySelector('.main-content').style.display = 'none';
+    // document.querySelector('.meme-modal').style.display = 'block';
     document.querySelector('.meme-modal').hidden = false;
-    document.querySelector('.main-footer').style.bottom = '0';
+    document.querySelector('input[name=freeText]').value = '';
+    resetMeme();
+
     setSelectedImgId(memeId);
+    setInitialPositions(gCanvas);
     renderCanvas();
 }
 
 function onShowGallery() {
+    document.querySelector('.main-content').style.display = 'unset';
     document.querySelector('.meme-modal').hidden = true;
-    document.querySelector('.main-content').hidden = false;
     document.querySelector('.saved-memes').hidden = true;
-    document.querySelector('.main-footer').style.bottom = '';
 }
 
 function onDown(ev) {
     const pos = getEvPos(ev);
-    const sticker = findStickerIdx(pos);
-    const line = findMemeLine(pos);
+    const stickerIdx = findStickerIdx(pos);
+    const lineIdx = findMemeLine(pos);
 
-    if (sticker >= 0) gDragging = 'sticker';
-    if (line >= 0) gDragging = 'line';
-    if (sticker < 0 && line < 0) {
+    if (stickerIdx >= 0) gDragging = 'sticker';
+    if (lineIdx >= 0) gDragging = 'line';
+    if (stickerIdx < 0 && lineIdx < 0) {
         gDragging = '';
         return;
     }
@@ -240,17 +235,16 @@ function onUp() {
 
 function onClick(ev) {
     const pos = getEvPos(ev);
-    let currLine = findMemeLine(pos);
-    let currSticker = findStickerIdx(pos);
-    if (currLine >= 0) {
+    let lineIdx = findMemeLine(pos);
+    let stickerIdx = findStickerIdx(pos);
+    if (lineIdx >= 0) {
         gSelected = 'line';
-        setSelectedLine(currLine);
-        gText = getTextFromMeme();
+        setSelectedLine(lineIdx);
         document.querySelector('input[name=freeText]').value = getTextFromMeme();
         renderCanvas();
-    } else if (currSticker >= 0) {
+    } else if (stickerIdx >= 0) {
         gSelected = 'sticker';
-        setSelectedSticker(currSticker);
+        setSelectedSticker(stickerIdx);
     } else gSelected = '';
 }
 
@@ -258,6 +252,7 @@ function onDownloadImg() {
     setSelectedLine(-1);
     renderCanvas();
     setTimeout(() => {
+        console.log('down');
         var link = document.createElement('a');
         link.download = 'my-img.jpg';
         link.href = document.getElementById('meme-canvas').toDataURL();
@@ -275,10 +270,9 @@ function onSaveImg() {
 }
 
 function onShowMemes() {
+    document.querySelector('.main-content').style.display = 'none';
     document.querySelector('.saved-memes').hidden = false;
-    document.querySelector('.main-content').hidden = true;
     document.querySelector('.meme-modal').hidden = true;
-    document.querySelector('.main-footer').style.bottom = '0';
     renderSavedMemes();
 }
 
