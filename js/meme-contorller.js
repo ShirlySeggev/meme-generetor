@@ -7,6 +7,7 @@ var gText = '';
 var gStartPos;
 var gIsDragging = false;
 var gDragging;
+var gSelected;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
 function onInit() {
@@ -68,11 +69,20 @@ function onToggleMenu() {
     document.body.classList.toggle('menu-open');
 }
 
-function drawImg(imgId) {
+function renderCanvas() {
     var img = new Image();
+    const imgId = getSelectedImgId();
     img.src = getImg(imgId);
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+        var lines = getMeme().lines;
+        lines.forEach((line, idx) => {
+            drawText(line, idx);
+        });
+        var stickers = getMeme().stickers;
+        stickers.forEach(sticker => {
+            renderSticker(sticker);
+        });
     }
 }
 
@@ -86,23 +96,15 @@ function onSetText(ev) {
     renderCanvas();
 }
 
-function renderCanvas() {
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    drawImg(getSelectedImgId());
-    setTimeout(() => {
-        var lines = getMeme().lines;
-        lines.forEach((line, idx) => {
-            drawText(line, idx);
-        });
-        var stickers = getMeme().stickers;
-        stickers.forEach(sticker => {
-            renderSticker(sticker);
-        });
-    }, 1);
-}
 
 function drawText(line, idx) {
     gCtx.beginPath();
+    gCtx.strokeStyle = line.strokeColor;
+    gCtx.fillStyle = line.fillColor;
+    gCtx.font = `${line.size}px ${line.font}`;
+    gCtx.textAlign = line.align;
+    gCtx.fillText(line.txt, line.positionX, line.positionY);
+    gCtx.strokeText(line.txt, line.positionX, line.positionY);
     let currLine = getSelectedLine();
     if (currLine === idx) {
         let width = gCtx.measureText(line.txt).width;
@@ -110,12 +112,6 @@ function drawText(line, idx) {
         gCtx.strokeStyle = "#FF0000";
         gCtx.strokeRect(line.positionX - 5, line.positionY - height, width + 10, height + 3);
     }
-    gCtx.strokeStyle = line.strokeColor;
-    gCtx.fillStyle = line.fillColor;
-    gCtx.font = `${line.size}px ${line.font}`;
-    gCtx.textAlign = line.align;
-    gCtx.fillText(line.txt, line.positionX, line.positionY);
-    gCtx.strokeText(line.txt, line.positionX, line.positionY);
 }
 
 
@@ -145,9 +141,11 @@ function onSetFont(ev) {
 }
 
 function onDeleteLine() {
-    deleteMeme();
-    gText = '';
-    document.querySelector('input[name=freeText]').value = '';
+    if (gSelected === 'line') {
+        deleteLine();
+        gText = '';
+        document.querySelector('input[name=freeText]').value = '';
+    } else if (gSelected === 'sticker') deleteSticker();
     renderCanvas();
 }
 
@@ -174,12 +172,13 @@ function onAddLine() {
 
 function onOpenModal(memeId) {
     gText = '';
+    resetMeme();
     document.querySelector('input[name=freeText]').value = '';
     document.querySelector('.main-content').hidden = true;
     document.querySelector('.meme-modal').hidden = false;
     document.querySelector('.main-footer').style.bottom = '0';
     setSelectedImgId(memeId);
-    drawImg(getSelectedImgId());
+    renderCanvas();
 }
 
 function onShowGallery() {
@@ -191,12 +190,12 @@ function onShowGallery() {
 
 function onDown(ev) {
     const pos = getEvPos(ev);
-    const sticker = findStickerPosition(pos);
+    const sticker = findStickerIdx(pos);
     const line = findMemeLine(pos);
 
-    if (sticker !== undefined) gDragging = 'sticker';
+    if (sticker >= 0) gDragging = 'sticker';
     if (line >= 0) gDragging = 'line';
-    if (sticker === undefined && line < 0) {
+    if (sticker < 0 && line < 0) {
         gDragging = '';
         return;
     }
@@ -227,7 +226,7 @@ function onMove(ev) {
         const dx = pos.x - gStartPos.x;
         const dy = pos.y - gStartPos.y;
         if (gDragging === 'line') setMemePosition(dx, dy);
-        else setStickerPosition(dx, dy, findStickerPosition(pos));
+        else setStickerPosition(dx, dy);
         gStartPos = pos;
         renderCanvas();
     }
@@ -242,12 +241,17 @@ function onUp() {
 function onClick(ev) {
     const pos = getEvPos(ev);
     let currLine = findMemeLine(pos);
+    let currSticker = findStickerIdx(pos);
     if (currLine >= 0) {
+        gSelected = 'line';
         setSelectedLine(currLine);
         gText = getTextFromMeme();
         document.querySelector('input[name=freeText]').value = getTextFromMeme();
         renderCanvas();
-    }
+    } else if (currSticker >= 0) {
+        gSelected = 'sticker';
+        setSelectedSticker(currSticker);
+    } else gSelected = '';
 }
 
 function onDownloadImg() {

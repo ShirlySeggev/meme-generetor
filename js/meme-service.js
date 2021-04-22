@@ -28,6 +28,7 @@ var gMeme = {
             fillColor: 'black',
         }
     ],
+    selectedStickerIdx: -1,
     stickers: []
 };
 
@@ -105,6 +106,7 @@ function setSizeToMeme(size) {
 function setAlignToMeme(alignTo) {
     const currLine = getSelectedLine();
     gMeme.lines[currLine].align = alignTo;
+    //Need to change also the xy positions!
 }
 
 function setFontToMeme(font) {
@@ -142,7 +144,7 @@ function createLine(canvas) {
     gMeme.lines.push(newLine);
 }
 
-function deleteMeme() {
+function deleteLine() {
     const currLine = getSelectedLine();
     gMeme.lines.splice(currLine, 1);
 }
@@ -203,18 +205,46 @@ function setFilter(filterBy) {
 
 function setStickerOnMeme(sticker, size) {
     let newSticker = { src: sticker, positionX: 30, positionY: 30, size };
+    gMeme.selectedStickerIdx = gMeme.stickers.length;
     gMeme.stickers.push(newSticker);
 }
 
-function findStickerPosition(pos) {
-    var theSticker = gMeme.stickers.find(sticker => {
+// function findStickerPosition(pos) {
+//     var theSticker = gMeme.stickers.find(sticker => {
+//         const distance = Math.sqrt((pos.x - sticker.positionX) ** 2 + (pos.y - sticker.positionY) ** 2);
+//         return distance <= sticker.size;
+//     });
+//     return theSticker;
+
+// }
+
+function setStickerPosition(posX, posY) {
+    gMeme.stickers[gMeme.selectedStickerIdx].positionX += posX;
+    gMeme.stickers[gMeme.selectedStickerIdx].positionY += posY;
+}
+
+function resetMeme() {
+    gMeme.lines.forEach(line => {
+        line.txt = '';
+    });
+    gMeme.selectedLineIdx = 0;
+    gMeme.selectedStickerIdx = 0;
+    gMeme.stickers = [];
+}
+
+function setSelectedSticker(sticker) {
+    gMeme.selectedStickerIdx = sticker;
+}
+
+function findStickerIdx(pos) {
+    var stickerIdx = gMeme.stickers.findIndex(sticker => {
         const distance = Math.sqrt((pos.x - sticker.positionX) ** 2 + (pos.y - sticker.positionY) ** 2);
         return distance <= sticker.size;
     });
-    return theSticker;
+    return stickerIdx;
 }
 
-function setStickerPosition(posX, posY, theSticker) {
-    theSticker.positionX += posX;
-    theSticker.positionY += posY;
+function deleteSticker() {
+    const currSticker = gMeme.selectedStickerIdx;
+    gMeme.stickers.splice(currSticker, 1);
 }
